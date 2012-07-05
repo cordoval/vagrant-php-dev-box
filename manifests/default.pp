@@ -38,7 +38,6 @@ class php5 {
     group  => root,
     mode   => 664,
     source => "/vagrant/conf/php/custom.ini",
-    notify => Service["php5-fpm"],
     require => Package["php5-common"],
   }
   
