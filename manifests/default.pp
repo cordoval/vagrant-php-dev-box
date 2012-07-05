@@ -2,24 +2,8 @@
 
 Exec { path => [ "/bin/", "/sbin/" , "/usr/bin/", "/usr/sbin/" ] }
 
-class system-update {
-
-  exec { 'apt-get update':
-    command => 'apt-get update',
-  }
-
-  $sysPackages = [ "build-essential" ]
-  package { $sysPackages:
-    ensure => "installed",
-    require => Exec['apt-get update'],
-  }
-}
 
 class php5 {
-
-  package { "php5":
-    ensure => present,
-  }
 
   $phpPackages = [ "php5-cli", "php5-common", "php-apc", "php5-intl", "php5-xdebug", "php5-mysql", "php5-sqlite", "php5-dev" ]
   package { $phpPackages:
@@ -49,6 +33,10 @@ class development {
   package { $devPackages:
     ensure => "installed",
     require => Exec['apt-get update'],
+  }
+
+  exec { 'apt-get update':
+    command => "apt-get update",
   }
 
   exec { 'set pear autodiscover':
@@ -86,7 +74,6 @@ class symfony-standard {
   }
 }
 
-include system-update
 include php5
 include development
 include symfony-standard

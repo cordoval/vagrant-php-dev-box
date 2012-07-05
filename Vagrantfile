@@ -60,6 +60,7 @@ Vagrant::Config.run do |config|
   #   puppet.manifest_file  = "precise64.pp"
   # end
   config.vm.provision :puppet
+  #config.vm.provision :puppet, :options => "--verbose --debug"
 
   # Enable provisioning with chef solo, specifying a cookbooks path, roles
   # path, and data_bags path (all relative to this Vagrantfile), and adding 
@@ -100,4 +101,5 @@ Vagrant::Config.run do |config|
   #   chef.validation_client_name = "ORGNAME-validator"
 
   #config.vm.customize ["setextradata", :id, "VBoxInternal2/SharedFoldersEnableSymlinksCreate/v-root", "1"]
+  config.vm.customize ["modifyvm", :id, "--memory", "1024"]
 end
