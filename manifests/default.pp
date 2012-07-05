@@ -25,23 +25,12 @@ class php5 {
   package { $phpPackages:
     ensure => "installed",
     require => Exec['apt-get update'],
-    notify => Service["php5-fpm"],
   }
 
   # as there was an issue in installation order we install that separatly
   package { "php5-cgi":
     ensure => installed,
     require => Exec['apt-get update'],
-  }
-
-  package { "php5-fpm":
-    ensure => present,
-    require => Exec['apt-get update'],
-  }
-
-  service { "php5-fpm":
-    ensure => running,
-    require => Package["php5-fpm"],
   }
 
   file { "/etc/php5/conf.d/custom.ini":
@@ -52,15 +41,7 @@ class php5 {
     notify => Service["php5-fpm"],
     require => Package["php5-common"],
   }
-
-  file { "/etc/php5/fpm/pool.d/www.conf":
-    owner  => root,
-    group  => root,
-    mode   => 664,
-    source => "/vagrant/conf/php/php-fpm/www.conf",
-    notify => Service["php5-fpm"],
-    require => Package["php5-fpm"],
-  }
+  
 }
 
 class development {
@@ -110,5 +91,3 @@ include system-update
 include php5
 include development
 include symfony-standard
-
-
