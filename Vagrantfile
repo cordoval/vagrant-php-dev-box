@@ -103,6 +103,6 @@ Vagrant::Config.run do |config|
   #config.vm.customize ["setextradata", :id, "VBoxInternal2/SharedFoldersEnableSymlinksCreate/v-root", "1"]
   config.vm.customize ["modifyvm", :id, "--memory", "1024"]
   #config.vm.share_folder("v-root", "/vagrant", ".", :extra => 'dmode=777,fmode=777')
-  config.vm.share_folder("v-root", "/vagrant", ".")
-
+  #config.vm.share_folder("v-root", "/vagrant", ".")
+  config.vm.share_folder("v-root", "/vagrant", ".", :extra => 'dmode=770,fmode=770')
 end
